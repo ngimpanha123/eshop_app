@@ -1,9 +1,5 @@
 import 'package:get/get.dart';
 
-import '../modules/app_settings/bindings/app_settings_binding.dart';
-import '../modules/app_settings/views/app_settings_view.dart';
-import '../modules/cart/bindings/cart_binding.dart';
-import '../modules/cart/views/cart_view.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
 import '../modules/login/bindings/login_binding.dart';
@@ -12,8 +8,7 @@ import '../modules/product/bindings/product_binding.dart';
 import '../modules/product/views/product_view.dart';
 import '../modules/register/bindings/register_binding.dart';
 import '../modules/register/views/register_view.dart';
-import '../modules/search_product/bindings/search_product_binding.dart';
-import '../modules/search_product/views/search_product_view.dart';
+import '../modules/dashboard/views/dashboard_view.dart';
 
 part 'app_routes.dart';
 
@@ -42,6 +37,11 @@ class AppPages {
       name: _Paths.PRODUCT,
       page: () => const ProductView(),
       binding: ProductBinding(),
+    ),
+    GetPage(
+      name: _Paths.DASHBOARD,
+      page: () => const DashboardView(),
+      // No binding needed - DashboardController is initialized in HomeBinding
     ),
 
     // Nested Navigation

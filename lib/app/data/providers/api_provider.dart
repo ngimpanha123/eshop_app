@@ -61,12 +61,95 @@ class APIProvider {
         '/admin/products',
         options: Options(
           headers: {
-            'Authorization': 'Bearer $token', // ✅ Include JWT token
+            'Authorization': 'Bearer $token',
           },
         ),
       );
     } catch (e) {
       print('❌ Products API Error: $e');
+      rethrow;
+    }
+  }
+
+  // ✅ Get Dashboard Data
+  Future<Response> getDashboard({required String today}) async {
+    try {
+      final storage = Get.find<StorageService>();
+      final token = storage.readToken();
+
+      return await _dio.get(
+        '/admin/dashboard',
+        queryParameters: {'today': today},
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer $token',
+          },
+        ),
+      );
+    } catch (e) {
+      print('❌ Dashboard API Error: $e');
+      rethrow;
+    }
+  }
+
+  // ✅ Get Cashier Data
+  Future<Response> getCashierData({required String today}) async {
+    try {
+      final storage = Get.find<StorageService>();
+      final token = storage.readToken();
+
+      return await _dio.get(
+        '/admin/dashboard/cashier',
+        queryParameters: {'today': today},
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer $token',
+          },
+        ),
+      );
+    } catch (e) {
+      print('❌ Cashier API Error: $e');
+      rethrow;
+    }
+  }
+
+  // ✅ Get Product Type Data
+  Future<Response> getProductTypeData({required String thisMonth}) async {
+    try {
+      final storage = Get.find<StorageService>();
+      final token = storage.readToken();
+
+      return await _dio.get(
+        '/admin/dashboard/product-type',
+        queryParameters: {'thisMonth': thisMonth},
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer $token',
+          },
+        ),
+      );
+    } catch (e) {
+      print('❌ Product Type API Error: $e');
+      rethrow;
+    }
+  }
+
+  // ✅ Get Sales Data
+  Future<Response> getSalesData() async {
+    try {
+      final storage = Get.find<StorageService>();
+      final token = storage.readToken();
+
+      return await _dio.get(
+        '/admin/dashboard/data-sale',
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer $token',
+          },
+        ),
+      );
+    } catch (e) {
+      print('❌ Sales Data API Error: $e');
       rethrow;
     }
   }
