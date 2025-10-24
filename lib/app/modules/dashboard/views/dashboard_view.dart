@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../controllers/dashboard_controller.dart';
-import 'widgets/statistic_card.dart';
 import 'widgets/sales_revenue_card.dart';
 import 'widgets/cashier_performance_chart.dart';
 import 'widgets/product_type_chart.dart';
 import 'widgets/sales_bar_chart.dart';
 import 'widgets/cashier_list_widget.dart';
+import 'widgets/dashboard_carousel_widget.dart';
 
 class DashboardView extends GetView<DashboardController> {
   const DashboardView({Key? key}) : super(key: key);
@@ -140,76 +140,43 @@ class DashboardView extends GetView<DashboardController> {
       return RefreshIndicator(
         onRefresh: controller.fetchDashboardData,
         child: SingleChildScrollView(
-          padding: const EdgeInsets.all(16),
+          padding: const EdgeInsets.symmetric(vertical: 16),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Statistics Grid
+              // Dashboard Carousel (Option 1 & Option 2)
               if (stat != null) ...[
-                Row(
-                  children: [
-                    Expanded(
-                      child: StatisticCard(
-                        imagePath: 'assets/images/packageblue.png',
-                        //icon: Icons.inventory_2_outlined,
-                        label: 'ផលិតផល',
-                        value: stat.totalProduct.toString(),
-                        subtitle: '+${stat.totalProductType}',
-                        iconColor: const Color(0xFF5C6BC0),
-                      ),
-                    ),
-                    const SizedBox(width: 12),
-                    Expanded(
-                      child: StatisticCard(
-                        imagePath: 'assets/images/packagegreen.png',
-                        //icon: Icons.category_outlined,
-                        label: 'ប្រភេទ',
-                        value: stat.totalProductType.toString(),
-                        iconColor: const Color(0xFF26A69A),
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 12),
-                Row(
-                  children: [
-                    Expanded(
-                      child: StatisticCard(
-                        icon: Icons.people_outline,
-                        label: 'អ្នកប្រើប្រាស់',
-                        value: stat.totalUser.toString(),
-                        iconColor: const Color(0xFF66BB6A),
-                      ),
-                    ),
-                    const SizedBox(width: 12),
-                    Expanded(
-                      child: StatisticCard(
-                        icon: Icons.shopping_cart_outlined,
-                        label: 'ការលក់',
-                        value: stat.totalOrder.toString(),
-                        iconColor: const Color(0xFFFF7043),
-                      ),
-                    ),
-                  ],
+                DashboardCarouselWidget(
+                  statistic: stat,
+                  onDatePickerTap: controller.showDatePicker,
                 ),
                 const SizedBox(height: 20),
               ],
 
               // Cashier List
               if (cashiers.isNotEmpty) ...[
-                CashierListWidget(cashiers: cashiers),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: CashierListWidget(cashiers: cashiers),
+                ),
                 const SizedBox(height: 20),
               ],
 
               // Product Type Chart
               if (productType != null) ...[
-                ProductTypeChart(productTypeData: productType),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: ProductTypeChart(productTypeData: productType),
+                ),
                 const SizedBox(height: 20),
               ],
 
               // Sales Bar Chart
               if (sales != null) ...[
-                SalesBarChart(salesData: sales),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: SalesBarChart(salesData: sales),
+                ),
               ],
             ],
           ),
