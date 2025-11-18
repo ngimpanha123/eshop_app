@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:intl/intl.dart';
-import 'package:pos/app/constan/color_constan.dart';
+import 'package:pos/app/constants/color_constan.dart';
 import '../../../../data/models/dashboard_model.dart';
 
 class SalesBarChart extends StatelessWidget {

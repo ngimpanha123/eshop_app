@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pos/app/constan/color_constan.dart';
+import 'package:pos/app/constants/color_constan.dart';
 import 'package:pos/app/modules/dashboard/views/widgets/statistic_card.dart';
 import '../../../../data/models/dashboard_model.dart';
 

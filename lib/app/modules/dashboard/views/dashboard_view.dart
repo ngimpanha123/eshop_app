@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../controllers/dashboard_controller.dart';
 import 'widgets/sales_revenue_card.dart';
-import 'widgets/cashier_performance_chart.dart';
 import 'widgets/product_type_chart.dart';
 import 'widgets/sales_bar_chart.dart';
-import 'widgets/cashier_list_widget.dart';
 import 'widgets/dashboard_carousel_widget.dart';
+import 'widgets/period_summary_widget.dart';
+import 'widgets/cashier_section_with_toggles.dart';
+import '../../home/widgets/app_drawer.dart';
 
 class DashboardView extends GetView<DashboardController> {
   const DashboardView({Key? key}) : super(key: key);
@@ -14,29 +15,19 @@ class DashboardView extends GetView<DashboardController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF5F5F5),
+      backgroundColor: const Color(0xFFF8F9FA),
+      drawer: const AppDrawer(),
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
-        title: Row(
-          children: [
-            Image.asset(
-              'assets/logo/posmobile1.png',
-              height: 40,
-              errorBuilder: (context, error, stackTrace) {
-                return const Icon(Icons.store, size: 40, color: Color(0xFF5C6BC0));
-              },
-            ),
-            const SizedBox(width: 12),
-            const Text(
-              'POS',
-              style: TextStyle(
-                color: Colors.black87,
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ],
+        title: const Text(
+          'Dashboard',
+          style: TextStyle(
+            color: Color(0xFF1F2937),
+            fontSize: 24,
+            fontWeight: FontWeight.w900,
+            letterSpacing: -0.5,
+          ),
         ),
         actions: [
           IconButton(
@@ -144,6 +135,17 @@ class DashboardView extends GetView<DashboardController> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              // Period Summary
+              PeriodSummaryWidget(
+                todayTotal: controller.todayTotal.value,
+                weekTotal: controller.weekTotal.value,
+                monthTotal: controller.monthTotal.value,
+                sixMonthsTotal: controller.sixMonthsTotal.value,
+                selectedPeriod: controller.selectedPeriod.value,
+                onPeriodChanged: controller.changePeriod,
+              ),
+              const SizedBox(height: 20),
+
               // Dashboard Carousel (Option 1 & Option 2)
               if (stat != null) ...[
                 DashboardCarouselWidget(
@@ -153,11 +155,11 @@ class DashboardView extends GetView<DashboardController> {
                 const SizedBox(height: 20),
               ],
 
-              // Cashier List
+              // Cashier Section with Toggles
               if (cashiers.isNotEmpty) ...[
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16),
-                  child: CashierListWidget(cashiers: cashiers),
+                  child: CashierSectionWithToggles(cashiers: cashiers),
                 ),
                 const SizedBox(height: 20),
               ],
@@ -197,6 +199,17 @@ class DashboardView extends GetView<DashboardController> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            // Period Summary
+            PeriodSummaryWidget(
+              todayTotal: controller.todayTotal.value,
+              weekTotal: controller.weekTotal.value,
+              monthTotal: controller.monthTotal.value,
+              sixMonthsTotal: controller.sixMonthsTotal.value,
+              selectedPeriod: controller.selectedPeriod.value,
+              onPeriodChanged: controller.changePeriod,
+            ),
+            const SizedBox(height: 24),
+
             // Header with user info
             Container(
               padding: const EdgeInsets.all(20),
@@ -287,9 +300,9 @@ class DashboardView extends GetView<DashboardController> {
                   flex: 1,
                   child: Column(
                     children: [
-                      // Cashier Performance Chart
+                      // Cashier Section with Toggles
                       if (cashiers.isNotEmpty) ...[
-                        CashierPerformanceChart(cashiers: cashiers),
+                        CashierSectionWithToggles(cashiers: cashiers),
                         const SizedBox(height: 20),
                       ],
 
