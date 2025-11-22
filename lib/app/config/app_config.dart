@@ -1,6 +1,6 @@
 class AppConfig {
   // 🌐 For Android Emulator
-  static const String apiBaseUrl = "http://10.0.2.2:9055/api";
+  static const String apiBaseUrl = "http://10.0.2.2:9003/api";
   static const String fileBaseUrl = "http://10.0.2.2:9056/";
   
   // 🌐 For iOS Simulator (uncomment if needed)
